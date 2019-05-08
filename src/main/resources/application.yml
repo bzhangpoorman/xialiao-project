@@ -3,10 +3,11 @@ server:
   tomcat:
     max-http-post-size: 100MB
 
+
 spring:
   thymeleaf:
-    cache: false # ¿ª·¢Ê±¹Ø±Õ»º´æ,²»È»Ã»·¨¿´µ½ÊµÊ±Ò³Ãæ
-    mode: HTML # ÓÃ·ÇÑÏ¸ñµÄ HTML
+    cache: false # å¼€å‘æ—¶å…³é—­ç¼“å­˜,ä¸ç„¶æ²¡æ³•çœ‹åˆ°å®æ—¶é¡µé¢
+    mode: HTML # ç”¨éä¸¥æ ¼çš„ HTML
     encoding: UTF-8
     servlet:
       content-type: text/html
@@ -35,5 +36,8 @@ logging:
   level:
     com:
       bzhang:
-        blog:
+        xialiao:
           mapper: DEBUG
+netty:
+  port: 8066
+  host: localhost
