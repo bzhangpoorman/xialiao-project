@@ -2,8 +2,9 @@ package com.bzhang.xialiao.mapper;
 
 import com.bzhang.xialiao.pojo.ScUsers;
 import com.bzhang.xialiao.pojo.ScUsersExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface ScUsersMapper {
     /**

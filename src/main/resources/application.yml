@@ -39,5 +39,13 @@ logging:
         xialiao:
           mapper: DEBUG
 netty:
-  port: 8066
+  port: 8099
   host: localhost
+fileconfig:
+  host: 47.96.229.245
+  port: 21
+  username: ftpuser
+  password: 900808
+  basepath: /home/ftpuser
+  filepath: /
+  size: 80

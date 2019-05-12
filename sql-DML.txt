@@ -1,0 +1,37 @@
+create table sc_users(
+id varchar(64) primary key not  null comment '用户唯一id，不使用主键自增',
+username varchar(20) not null comment '用户名',
+password varchar(64) not null comment '密码',
+face_image varchar(255) not null comment '用户头像',
+face_image_big varchar(255) not null comment '用户大图头像',
+nickname varchar(20) not null comment '用户昵称',
+phone varchar(20) comment '绑定手机号，目前未使用',
+qrcode varchar(255) not null comment '用户唯一二维码',
+cid varchar(64) comment '客户端绑定的手机设备号',
+created datetime NOT NULL,
+updated datetime NOT NULL,
+UNIQUE KEY username (username)
+)engine innodb charset utf8;
+
+create table sc_friends_request(
+id varchar(64) primary key not  null comment '用户请求id',
+send_user_id varchar(64) not null comment '发送用户id',
+accept_user_id varchar(64) not null comment '接收用户id',
+request_datetime datetime NOT NULL
+)engine innodb charset utf8;
+
+create table sc_my_friends(
+id varchar(64) primary key not  null comment '主键id',
+my_user_id varchar(64) not null comment '用户id',
+friend_user_id varchar(64) not null comment '好友id',
+is_black tinyint not null default 0 comment '是否黑名单'
+)engine innodb charset utf8;
+
+create table sc_chat_msg(
+id varchar(64) primary key not  null comment '主键id',
+send_user_id varchar(64) not null comment '发送消息的用户id',
+accept_user_id varchar(64) not null comment '接收消息的用户id',
+msg varchar(255) not null comment '聊天记录',
+sign_flag tinyint not null default 0 comment '消息是否已读',
+created datetime NOT NULL
+)engine innodb charset utf8;

@@ -10,7 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @MapperScan(basePackages = "com.bzhang.xialiao.mapper")
-@ComponentScan(basePackages = "com.bzhang.xialiao")
+@ComponentScan(basePackages = {"com.bzhang.xialiao","org.n3r.idworker"})
 public class XialiaoApplication implements CommandLineRunner {
 	@Autowired
 	private ChatServer chatServer;
