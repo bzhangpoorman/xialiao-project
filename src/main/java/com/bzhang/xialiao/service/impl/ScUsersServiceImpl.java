@@ -81,5 +81,16 @@ public class ScUsersServiceImpl implements ScUsersService {
             return succ;
       }
 
+      @Override
+      public ScUsers selectUserById(String id) {
+            ScUsersExample example = new ScUsersExample();
+            example.createCriteria().andIdEqualTo(id);
+            List<ScUsers> list = scUsersMapper.selectByExample(example);
+            if (list!=null&&list.size()>0){
+                  return list.get(0);
+            }
+            return null;
+      }
+
 
 }

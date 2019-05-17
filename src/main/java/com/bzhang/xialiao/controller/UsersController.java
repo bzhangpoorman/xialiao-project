@@ -49,8 +49,19 @@ public class UsersController {
                   }else {
                         return ReturnMsg.err("注册失败!");
                   }
-
             }
+      }
+
+      @PostMapping("/update/nickname")
+      public ReturnMsg updateNickename(ScUsers user){
+            if (user == null || StringUtils.isBlank(user.getId()) || StringUtils.isBlank(user.getNickname())){
+                  return  ReturnMsg.err("数据不正确!");
+            }
+            int updateResult = scUsersService.updateUserById(user);
+            if (updateResult == 1){
+                  return ReturnMsg.ok(ReturnMsg.OK);
+            }
+            return ReturnMsg.err("更新昵称失败！");
 
       }
 }

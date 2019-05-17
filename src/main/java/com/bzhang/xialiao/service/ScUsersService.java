@@ -34,4 +34,11 @@ public interface ScUsersService {
        * @return
        */
       int updateUserById(ScUsers user);
+
+      /**
+       * 根据用户id选择用户
+       * @param id
+       * @return
+       */
+      ScUsers selectUserById(String id);
 }
