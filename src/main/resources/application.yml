@@ -49,3 +49,8 @@ fileconfig:
   basepath: /home/ftpuser
   filepath: /
   size: 80
+  format: png
+
+qrcodeconfig:
+  format: png
+  prefixContent: xialiao_qrcode_info_
