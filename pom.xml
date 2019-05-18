@@ -78,6 +78,7 @@
 			<version>1.2.5</version>
 		</dependency>
 
+		<!--编解码工具包-->
 		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
@@ -96,6 +97,7 @@
 			<artifactId>jackson-databind</artifactId>
 		</dependency>
 
+		<!--图像处理工具依赖-->
 		<dependency>
 			<groupId>net.coobird</groupId>
 			<artifactId>thumbnailator</artifactId>
@@ -106,6 +108,13 @@
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
 			<version>27.1-jre</version>
+		</dependency>
+
+		<!--生成二维码工具包-->
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>javase</artifactId>
+			<version>3.3.3</version>
 		</dependency>
 
 		<dependency>
