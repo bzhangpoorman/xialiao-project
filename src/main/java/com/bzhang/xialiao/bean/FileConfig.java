@@ -4,6 +4,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
+ * 文件上传到图片服务器用到的参数
  * Created by bzhang on 2019/5/12.
  */
 @Component
@@ -16,6 +17,15 @@ public class FileConfig {
       private String basepath;
       private String filepath;
       private int size;
+      private String format;
+
+      public String getFormat() {
+            return format;
+      }
+
+      public void setFormat(String format) {
+            this.format = format;
+      }
 
       public int getSize() {
             return size;

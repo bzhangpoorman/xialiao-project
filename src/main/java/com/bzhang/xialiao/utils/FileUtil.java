@@ -19,7 +19,6 @@ public class FileUtil {
                   MultipartFile multipartFile = new MockMultipartFile(file.getName(), "png", "image/png", inputStream);
                   return multipartFile;
             } catch (IOException e) {
-                  // TODO Auto-generated catch block
                   e.printStackTrace();
                   return null;
             }

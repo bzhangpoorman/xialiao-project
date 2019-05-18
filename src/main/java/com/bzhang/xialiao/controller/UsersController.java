@@ -64,4 +64,26 @@ public class UsersController {
             return ReturnMsg.err("更新昵称失败！");
 
       }
+
+      @PostMapping("/get/qrcode")
+      public ReturnMsg getQrcode(String id){
+            if (id == null || StringUtils.isBlank(id)){
+                  return  ReturnMsg.err("数据不正确!");
+            }
+            ScUsers user = scUsersService.selectUserById(id);
+            if (user!=null){
+                  //若用户存在二维码信息直接返回该信息
+                  if (StringUtils.isNotBlank(user.getQrcode())){
+                        return ReturnMsg.ok(user.getQrcode());
+                  }else{
+                        //若用户二维码信息不存在（生成二维码图片保存到图片服务器失败）
+                        user = scUsersService.updateUserQrcode(user);
+                        if (StringUtils.isNotBlank(user.getQrcode())){
+                              return ReturnMsg.ok(user.getQrcode());
+                        }
+
+                  }
+            }
+            return ReturnMsg.err("二维码查询失败！");
+      }
 }

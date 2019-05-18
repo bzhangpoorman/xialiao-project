@@ -37,9 +37,9 @@ public class ImageUtil {
        * 使用给定的图片生成指定大小的图片
        */
       public static MultipartFile generateFixedSizeImage(MultipartFile file,int size) {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
             try {
-                  ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                  String addname = "_80x80";
+                  String addname = "_"+size+"x"+size;
                   String[] split = file.getName().split("\\u002E");
                   System.out.println(file.getName()+split.length);
                   String newName = split[0]+addname+"."+split[1];
@@ -49,6 +49,8 @@ public class ImageUtil {
                   return new MockMultipartFile(newName,split[1],"image/"+split[1],baos.toByteArray());
             } catch (IOException e) {
                   e.printStackTrace();
+            }finally {
+                  CommonUtils.close(baos);
             }
             return null;
       }

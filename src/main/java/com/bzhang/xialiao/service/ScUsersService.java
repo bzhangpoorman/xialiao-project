@@ -41,4 +41,11 @@ public interface ScUsersService {
        * @return
        */
       ScUsers selectUserById(String id);
+
+      /**
+       * 更新二维码信息,用于二维码生成失败时调用
+       * @param user
+       * @return
+       */
+      ScUsers updateUserQrcode(ScUsers user);
 }

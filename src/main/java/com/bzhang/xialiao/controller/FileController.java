@@ -57,9 +57,11 @@ public class FileController {
                   return ReturnMsg.err("文件上传出错！");
             }
 
+            //解码图片信息
             byte[] decodeFromString = Base64Utils.decodeFromString(base64);
-            String newName = sid.nextShort() + ".png";
-            MultipartFile imagefile = new MockMultipartFile(newName, "png", "image/png", decodeFromString);
+            String newName = sid.nextShort() + "."+fileConfig.getFormat();
+            MultipartFile imagefile = new MockMultipartFile(newName, fileConfig.getFormat(),
+                    "image/"+fileConfig.getFormat(), decodeFromString);
 
             //由大图生成小图
             MultipartFile imagefileSmall = ImageUtil.generateFixedSizeImage(imagefile, fileConfig.getSize());
