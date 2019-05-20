@@ -161,5 +161,16 @@ public class ScUsersServiceImpl implements ScUsersService {
             }
       }
 
+      @Override
+      public ScUsers selectUserByUsername(String username) {
+            ScUsersExample example = new ScUsersExample();
+            example.createCriteria().andUsernameEqualTo(username);
+            List<ScUsers> list = scUsersMapper.selectByExample(example);
+            if (list!=null&&list.size()>0){
+                  return list.get(0);
+            }
+            return null;
+      }
+
 
 }

@@ -2,6 +2,7 @@ package com.bzhang.xialiao.controller;
 
 import com.bzhang.xialiao.pojo.ScUsers;
 import com.bzhang.xialiao.pojo.vo.ScUsersVO;
+import com.bzhang.xialiao.service.ScMyFriendsService;
 import com.bzhang.xialiao.service.ScUsersService;
 import com.bzhang.xialiao.utils.ReturnMsg;
 import org.apache.commons.lang3.StringUtils;
@@ -20,6 +21,9 @@ public class UsersController {
 
       @Autowired
       private ScUsersService scUsersService;
+
+      @Autowired
+      private ScMyFriendsService scMyFriendsService;
 
       @PostMapping(value = "/registerOrLogin")
       public ReturnMsg registerOrLogin(ScUsers user){
@@ -85,5 +89,33 @@ public class UsersController {
                   }
             }
             return ReturnMsg.err("二维码查询失败！");
+      }
+
+      @PostMapping("/search/username")
+      public ReturnMsg searchUser(String id,String username){
+            if (StringUtils.isBlank(username)){
+                  return ReturnMsg.err("用户名不能为空！");
+
+            }
+            ScUsers user = scUsersService.selectUserByUsername(username);
+            if (user!=null){
+                  if (id == user.getId()){
+                        return ReturnMsg.err("查询的是用户自己！");
+                  }
+                  int isFriendOrNot = scMyFriendsService.checkUserIsFriendOrNot(id, user.getId());
+                  ScUsersVO userVO = ScUsersVO.getScUsersVO(user);
+                  //未添加的好友
+                  if (isFriendOrNot == 0){
+                        return ReturnMsg.build(200,"0",userVO);
+                  }
+                  if (isFriendOrNot == 1){
+                        return ReturnMsg.build(200,"1",userVO);
+                  }
+                  if (isFriendOrNot == 2){
+                        return ReturnMsg.build(200,"2",userVO);
+                  }
+
+            }
+            return ReturnMsg.err("该用户不存在！");
       }
 }

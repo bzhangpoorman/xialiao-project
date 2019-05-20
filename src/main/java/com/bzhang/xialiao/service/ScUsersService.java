@@ -48,4 +48,11 @@ public interface ScUsersService {
        * @return
        */
       ScUsers updateUserQrcode(ScUsers user);
+
+      /**
+       * 根据用户名查找用户
+       * @param username
+       * @return
+       */
+      ScUsers selectUserByUsername(String username);
 }
