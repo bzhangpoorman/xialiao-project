@@ -34,14 +34,13 @@ public class ScFriendsRequestServiceImpl implements ScFriendsRequestService {
 
         //判断请求是否已经存在且已经处理过，只有请求已被处理过或者没发送过好友请求才会向对方发送好友请求
         if (list!=null&&list.size()>0){
-            if (list.get(0).getIsHandle()==1){
-
-                request.setId(sid.nextShort());
-                request.setRequestDatetime(new Date());
-                return scFriendsRequestMapper.insertSelective(request);
+            if (list.get(0).getIsHandle()==0){
+                return 0;
 
             }
         }
-        return 0;
+        request.setId(sid.nextShort());
+        request.setRequestDatetime(new Date());
+        return scFriendsRequestMapper.insertSelective(request);
     }
 }
