@@ -1,9 +1,13 @@
 package com.bzhang.xialiao.service.impl;
 
 import com.bzhang.xialiao.mapper.ScFriendsRequestMapper;
+import com.bzhang.xialiao.mapper.ScMyFriendsMapper;
 import com.bzhang.xialiao.pojo.ScFriendsRequest;
 import com.bzhang.xialiao.pojo.ScFriendsRequestExample;
+import com.bzhang.xialiao.pojo.ScMyFriends;
 import com.bzhang.xialiao.service.ScFriendsRequestService;
+import com.bzhang.xialiao.service.ScMyFriendsService;
+import org.apache.commons.lang3.StringUtils;
 import org.n3r.idworker.Sid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +21,8 @@ import java.util.List;
  */
 @Service
 public class ScFriendsRequestServiceImpl implements ScFriendsRequestService {
+    @Autowired
+    private ScMyFriendsMapper scMyFriendsMapper;
 
     @Autowired
     private ScFriendsRequestMapper scFriendsRequestMapper;
@@ -42,5 +48,43 @@ public class ScFriendsRequestServiceImpl implements ScFriendsRequestService {
         request.setId(sid.nextShort());
         request.setRequestDatetime(new Date());
         return scFriendsRequestMapper.insertSelective(request);
+    }
+
+    @Transactional
+    @Override
+    public List<ScFriendsRequest> selectRequestById(ScFriendsRequest request) {
+        ScFriendsRequestExample example = new ScFriendsRequestExample();
+        ScFriendsRequestExample.Criteria criteria = example.createCriteria();
+        if (StringUtils.isNoneBlank(request.getSendUserId())){
+            criteria.andSendUserIdEqualTo(request.getSendUserId());
+        }
+        if (StringUtils.isNoneBlank(request.getAcceptUserId())){
+            criteria.andAcceptUserIdEqualTo(request.getAcceptUserId());
+        }
+        if (StringUtils.isNoneBlank(request.getId())){
+            criteria.andIdEqualTo(request.getId());
+        }
+
+        List<ScFriendsRequest> list = scFriendsRequestMapper.selectByExample(example);
+        return list;
+    }
+
+    @Transactional
+    @Override
+    public boolean updateRequestIsHandle(ScFriendsRequest scFriendsRequest) {
+        ScFriendsRequestExample example = new ScFriendsRequestExample();
+        example.createCriteria().andIdEqualTo(scFriendsRequest.getId());
+        int res = scFriendsRequestMapper.updateByExampleSelective(scFriendsRequest, example);
+        if (res == 1){
+            if (scFriendsRequest.getIsHandle()==1){
+                ScMyFriends sendUser = new ScMyFriends();
+                sendUser.setMyUserId(scFriendsRequest.getSendUserId());
+                sendUser.setFriendUserId(scFriendsRequest.getAcceptUserId());
+
+                res =res + scMyFriendsMapper.insert(sendUser);
+                if (res ==2)
+            }
+        }
+
     }
 }

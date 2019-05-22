@@ -9,7 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * @CreateTime 2019/5/21
@@ -44,4 +47,31 @@ public class FriendRequestController {
         }
         return  ReturnMsg.err("错误的请求！");
     }
+
+    @PostMapping("/search")
+    public ReturnMsg searchAllrequest(ScFriendsRequest scFriendsRequest){
+        if (StringUtils.isBlank(scFriendsRequest.getSendUserId())){
+            return ReturnMsg.err("参数不正确！");
+        }
+        List<ScFriendsRequest> list = scFriendsRequestService.selectRequestById(scFriendsRequest);
+
+        return ReturnMsg.ok(list);
+
+    }
+
+
+
+    @PostMapping("/handle")
+    public ReturnMsg handleRequest(ScFriendsRequest scFriendsRequest){
+        if (StringUtils.isBlank(scFriendsRequest.getId()) ||
+            StringUtils.isBlank(scFriendsRequest.getSendUserId()) ||
+            StringUtils.isBlank(scFriendsRequest.getAcceptUserId()) ||
+            scFriendsRequest.getIsHandle()>0){
+            return ReturnMsg.err("参数错误！");
+        }
+
+        scFriendsRequestService.
+
+    }
+
 }
